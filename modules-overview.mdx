@@ -1,0 +1,194 @@
+---
+title: Modules Overview
+icon: 📦
+---
+
+Lodash 是一个高度模块化的 JavaScript 实用工具库，内部将功能拆解为多个独立模块，方便开发者按需引入、降低最终产物体积。
+
+## 模块分类
+
+Lodash 的核心功能被划分为以下模块，每个模块围绕一类数据类型或通用能力组织：
+
+<Table>
+    <TableRow>
+        <TableCell>
+            模块名
+        </TableCell>
+        <TableCell>
+            说明
+        </TableCell>
+    </TableRow>
+    <TableRow>
+        <TableCell>
+            Array
+        </TableCell>
+        <TableCell>
+            处理数组相关操作，例如 <Mark bold>chunk</Mark>、<Mark bold>flatten</Mark>、<Mark bold>union</Mark> 等，涵盖数组的分割、扁平化、去重、合并等场景。
+        </TableCell>
+    </TableRow>
+    <TableRow>
+        <TableCell>
+            Collection
+        </TableCell>
+        <TableCell>
+            同时支持数组与对象遍历操作，提供 <Mark bold>forEach</Mark>、<Mark bold>map</Mark>、<Mark bold>filter</Mark> 等通用迭代方法，无需区分数据结构类型。
+        </TableCell>
+    </TableRow>
+    <TableRow>
+        <TableCell>
+            Date
+        </TableCell>
+        <TableCell>
+            日期相关工具方法，用于日期格式化、解析、比较等场景。
+        </TableCell>
+    </TableRow>
+    <TableRow>
+        <TableCell>
+            Function
+        </TableCell>
+        <TableCell>
+            函数增强相关方法，包含 <Mark bold>debounce</Mark>、<Mark bold>throttle</Mark>、<Mark bold>curry</Mark> 等，用于函数节流、防抖、柯里化等高频需求。
+        </TableCell>
+    </TableRow>
+    <TableRow>
+        <TableCell>
+            Lang
+        </TableCell>
+        <TableCell>
+            类型判断与类型转换工具，例如 <Mark bold>isArray</Mark>、<Mark bold>isObject</Mark>、<Mark bold>castArray</Mark> 等，帮助开发者准确处理 JS 类型问题。
+        </TableCell>
+    </TableRow>
+    <TableRow>
+        <TableCell>
+            Math
+        </TableCell>
+        <TableCell>
+            数学计算相关方法，提供 <Mark bold>add</Mark>、<Mark bold>subtract</Mark>、<Mark bold>round</Mark> 等数值运算能力。
+        </TableCell>
+    </TableRow>
+    <TableRow>
+        <TableCell>
+            Number
+        </TableCell>
+        <TableCell>
+            数字处理相关工具，包含数字格式化、范围限制、随机数生成等功能。
+        </TableCell>
+    </TableRow>
+    <TableRow>
+        <TableCell>
+            Object
+        </TableCell>
+        <TableCell>
+            对象操作相关方法，例如 <Mark bold>assign</Mark>、<Mark bold>cloneDeep</Mark>、<Mark bold>keys</Mark> 等，覆盖对象合并、深拷贝、属性获取等场景。
+        </TableCell>
+    </TableRow>
+    <TableRow>
+        <TableCell>
+            String
+        </TableCell>
+        <TableCell>
+            字符串处理相关方法，包含 <Mark bold>camelCase</Mark>、<Mark bold>kebabCase</Mark>、<Mark bold>trim</Mark> 等，用于字符串格式转换、裁剪等操作。
+        </TableCell>
+    </TableRow>
+    <TableRow>
+        <TableCell>
+            Util
+        </TableCell>
+        <TableCell>
+            通用工具方法，例如 <Mark bold>noop</Mark>、<Mark bold>times</Mark>、<Mark bold>uniqueId</Mark> 等，提供各类基础辅助能力。
+        </TableCell>
+    </TableRow>
+</Table>
+
+## 模块化引入方式
+
+Lodash 支持多种灵活的引入方式，你可以根据项目需求选择最合适的方案：
+
+### 全量引入
+
+直接引入完整的 Lodash 库，所有方法都可以通过 `_` 对象调用：
+
+```javascript
+const _ = require('lodash');
+// 或者 ES Module 方式
+import _ from 'lodash';
+
+_.chunk([1, 2, 3, 4], 2); // => [[1, 2], [3, 4]]
+```
+
+这种方式适合快速开发原型或不需要关注包体积的场景，但会引入全部代码，可能导致最终产物体积偏大。
+
+### 按方法引入
+
+仅引入你需要的单个方法，这是生产环境最推荐的方式，可以最大程度减小包体积：
+
+```javascript
+// CommonJS 方式
+const chunk = require('lodash/chunk');
+// ES Module 方式
+import chunk from 'lodash/chunk';
+
+chunk([1, 2, 3, 4], 2); // => [[1, 2], [3, 4]]
+```
+
+每个方法都有独立的模块文件，你可以通过 `lodash/方法名` 的路径直接引入。
+
+### FP 模块引入
+
+如果你需要使用 Lodash 的函数式编程风格模块，可以引入 `lodash/fp` 相关方法，该模块的方法默认都是柯里化、参数顺序经过优化的版本：
+
+```javascript
+import { map, filter } from 'lodash/fp';
+
+const result = filter(x => x > 2)([1, 2, 3, 4]); // => [3, 4]
+```
+
+关于 FP 模块的更多细节，可以参考 <Link href="/fp-module">Lodash FP 模块</Link> 页面。
+
+<Divider />
+
+## 相关参考
+
+如果你刚接触 Lodash，建议先阅读以下页面了解基础信息：
+
+<BulletedList>
+    了解 Lodash 的基本定位与适用场景，可以查看 <Link href="/introduction">Lodash 简介</Link>
+</BulletedList>
+<BulletedList>
+    快速上手使用 Lodash，可以参考 <Link href="/quickstart">快速开始</Link>
+</BulletedList>
+<BulletedList>
+    了解不同环境下的安装方式，可以查看 <Link href="/installation">安装指南</Link>
+</BulletedList>
+
+你也可以根据感兴趣的模块跳转到对应分类的详细文档：
+
+<ColumnList>
+    <Column width="33%">
+        <BulletedList>
+            <Link href="/array-methods">Array 模块</Link>
+        </BulletedList>
+        <BulletedList>
+            <Link href="/collection-methods">Collection 模块</Link>
+        </BulletedList>
+        <BulletedList>
+            <Link href="/function-methods">Function 模块</Link>
+        </BulletedList>
+    </Column>
+    <Column width="33%">
+        <BulletedList>
+            <Link href="/lang-methods">Lang 模块</Link>
+        </BulletedList>
+        <BulletedList>
+            其他模块后续会持续补充文档
+        </BulletedList>
+    </Column>
+    <Column width="34%">
+        <BulletedList>
+            参与贡献可以查看 <Link href="/contributing">贡献指南</Link>
+        </BulletedList>
+        <BulletedList>
+            了解项目治理规则可以查看 <Link href="/governance">治理说明</Link>
+        </BulletedList>
+    </Column>
+</ColumnList>
