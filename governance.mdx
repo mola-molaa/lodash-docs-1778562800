@@ -1,0 +1,74 @@
+---
+title: Governance
+icon: 🏛️
+---
+
+## 技术指导委员会（TSC）
+
+Lodash 项目由技术指导委员会（Technical Steering Committee, 简称 TSC）负责核心技术决策与方向把控。TSC 的成员通常为项目的核心维护者，他们长期参与 Lodash 的核心代码演进、架构设计与生态维护，对项目的整体质量与技术路线承担最终责任。
+
+TSC 的主要职责包括：
+
+<BulletedList>
+    制定并维护项目的整体技术路线图，确保 Lodash 在 JavaScript 工具库领域的长期竞争力与稳定性
+</BulletedList>
+<BulletedList>
+    评审并决策重大功能变更、API 调整以及底层架构重构方案
+</BulletedList>
+<BulletedList>
+    管理项目的版本发布节奏，平衡新特性迭代与稳定性保障之间的关系
+</BulletedList>
+<BulletedList>
+    裁决贡献流程中出现的争议性问题，维护社区贡献秩序
+</BulletedList>
+<BulletedList>
+    监督项目治理规则的更新与落地执行
+</BulletedList>
+
+## 决策流程
+
+Lodash 的日常技术决策遵循<Mark bold>开放讨论、共识优先</Mark>的原则：
+
+<NumberedList>
+    任何涉及核心 API 变更、底层架构调整或重大方向性问题的提案，需在项目对应的讨论区或 issue 中公开提出，并附带完整的背景说明、变更理由与影响范围分析
+</NumberedList>
+<NumberedList>
+    社区贡献者与 TSC 成员均可对提案发表意见，讨论周期通常持续足够时间以确保充分收集反馈
+</NumberedList>
+<NumberedList>
+    TSC 成员基于提案的技术合理性、对现有生态的影响、维护成本等多维度进行评估，最终以共识方式做出决策；若无法达成共识，由 TSC 核心成员投票决定
+</NumberedList>
+<NumberedList>
+    决策结果会在对应讨论渠道公示，相关变更会纳入项目的版本规划中逐步落地
+</NumberedList>
+
+对于常规性的 bug 修复、文档优化等非重大变更，通常由维护者直接评审合并，无需走完整的 TSC 决策流程。
+
+## 项目成熟度阶段
+
+Lodash 经过长期迭代已经成为 JavaScript 生态中广泛使用的工具库，目前处于<Mark bold>稳定成熟阶段</Mark>：
+
+<Paragraph blockColor="light_blue">
+    核心 API 已经长期保持稳定，大部分常用方法的设计与行为已经经过大量生产环境验证，不会轻易发生破坏性变更。新版本的发布主要聚焦于 bug 修复、性能优化、TypeScript 类型完善以及适配新的 JavaScript 运行环境。
+</Paragraph>
+
+项目目前的工作重点包括：
+
+<BulletedList>
+    持续优化现有方法的性能与边缘场景兼容性
+</BulletedList>
+<BulletedList>
+    完善 TypeScript 类型定义，提升类型推断的准确性与开发体验
+</BulletedList>
+<BulletedList>
+    维护 <Link href="/fp-module">FP 模块</Link> 的功能完整性与使用体验
+</BulletedList>
+<BulletedList>
+    跟进 JavaScript 新特性，在合适的情况下补充对应的工具方法
+</BulletedList>
+
+## 参与贡献
+
+如果你希望参与 Lodash 的项目建设，可以参考 <Link href="/contributing">贡献指南</Link> 了解完整的流程与规范。无论是提交 bug 反馈、优化文档还是贡献代码，都遵循统一的社区治理规则。
+
+你也可以先通过 <Link href="/introduction">项目介绍</Link>、<Link href="/quickstart">快速上手</Link> 或 <Link href="/installation">安装指南</Link> 了解项目基础信息，再结合 <Link href="/modules-overview">模块总览</Link>、<Link href="/array-methods">数组方法</Link>、<Link href="/collection-methods">集合方法</Link>、<Link href="/function-methods">函数方法</Link>、<Link href="/lang-methods">语言方法</Link> 等页面熟悉具体 API 的使用。
