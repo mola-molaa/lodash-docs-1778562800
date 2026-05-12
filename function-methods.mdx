@@ -1,0 +1,434 @@
+---
+title: Function Methods
+icon: ⚙️
+---
+
+函数相关方法用于处理和增强函数行为，包括函数柯里化、防抖、节流、记忆化、绑定上下文、偏函数、函数组合等常见场景。
+
+## curry
+
+将多参数函数转换为一系列单参数（或部分参数）函数的柯里化方法。
+
+### 参数
+
+<Table>
+    <TableRow>
+        <TableCell>
+            参数名
+        </TableCell>
+        <TableCell>
+            类型
+        </TableCell>
+        <TableCell>
+            描述
+        </TableCell>
+    </TableRow>
+    <TableRow>
+        <TableCell>
+            fn
+        </TableCell>
+        <TableCell>
+            函数
+        </TableCell>
+        <TableCell>
+            需要进行柯里化的原始函数
+        </TableCell>
+    </TableRow>
+    <TableRow>
+        <TableCell>
+            arity
+        </TableCell>
+        <TableCell>
+            数字（可选）
+        </TableCell>
+        <TableCell>
+            指定柯里化的参数个数，默认取原始函数的形参长度
+        </TableCell>
+    </TableRow>
+</Table>
+
+### 示例
+
+假设原始函数为两个数字的求和函数：
+
+```
+function add(a, b) {
+    return a + b;
+}
+```
+
+使用 curry 转换后：
+
+```
+const curriedAdd = curry(add);
+curriedAdd(1)(2); // 3
+curriedAdd(1, 2); // 3
+```
+
+也可以指定参数个数：
+
+```
+function sum3(a, b, c) {
+    return a + b + c;
+}
+const curriedSum3 = curry(sum3, 3);
+curriedSum3(1)(2)(3); // 6
+```
+
+## debounce
+
+创建一个防抖函数，该函数在被调用后等待指定时间，若等待期间再次调用则重新计时，直到等待时间结束后才执行原始函数。常用于输入框搜索、窗口 resize 等高频触发场景。
+
+### 参数
+
+<Table>
+    <TableRow>
+        <TableCell>
+            参数名
+        </TableCell>
+        <TableCell>
+            类型
+        </TableCell>
+        <TableCell>
+            描述
+        </TableCell>
+    </TableRow>
+    <TableRow>
+        <TableCell>
+            fn
+        </TableCell>
+        <TableCell>
+            函数
+        </TableCell>
+        <TableCell>
+            需要防抖处理的原始函数
+        </TableCell>
+    </TableRow>
+    <TableRow>
+        <TableCell>
+            wait
+        </TableCell>
+        <TableCell>
+            数字
+        </TableCell>
+        <TableCell>
+            等待时间，单位为毫秒
+        </TableCell>
+    </TableRow>
+    <TableRow>
+        <TableCell>
+            options
+        </TableCell>
+        <TableCell>
+            对象（可选）
+        </TableCell>
+        <TableCell>
+            配置项，可包含 leading（是否在等待开始前执行）、trailing（是否在等待结束后执行）等字段
+        </TableCell>
+    </TableRow>
+</Table>
+
+### 示例
+
+```
+const debouncedSearch = debounce((keyword) => {
+    console.log('搜索关键词：', keyword);
+}, 500);
+
+// 连续触发时只会执行最后一次
+debouncedSearch('a');
+debouncedSearch('ab');
+debouncedSearch('abc'); // 500ms 后输出：搜索关键词：abc
+```
+
+## throttle
+
+创建一个节流函数，该函数在指定时间间隔内最多执行一次，无论被调用多少次。常用于滚动加载、鼠标移动等高频触发场景。
+
+### 参数
+
+<Table>
+    <TableRow>
+        <TableCell>
+            参数名
+        </TableCell>
+        <TableCell>
+            类型
+        </TableCell>
+        <TableCell>
+            描述
+        </TableCell>
+    </TableRow>
+    <TableRow>
+        <TableCell>
+            fn
+        </TableCell>
+        <TableCell>
+            函数
+        </TableCell>
+        <TableCell>
+            需要节流处理的原始函数
+        </TableCell>
+    </TableRow>
+    <TableRow>
+        <TableCell>
+            interval
+        </TableCell>
+        <TableCell>
+            数字
+        </TableCell>
+        <TableCell>
+            节流时间间隔，单位为毫秒
+        </TableCell>
+    </TableRow>
+</Table>
+
+### 示例
+
+```
+const throttledScroll = throttle(() => {
+    console.log('滚动事件触发');
+}, 1000);
+
+// 1秒内多次触发只会执行一次
+throttledScroll();
+throttledScroll();
+throttledScroll(); // 1秒后输出一次：滚动事件触发
+```
+
+## memoize
+
+创建一个记忆化函数，缓存函数的计算结果，当使用相同参数再次调用时直接返回缓存结果，避免重复计算。适用于计算成本较高的纯函数。
+
+### 参数
+
+<Table>
+    <TableRow>
+        <TableCell>
+            参数名
+        </TableCell>
+        <TableCell>
+            类型
+        </TableCell>
+        <TableCell>
+            描述
+        </TableCell>
+    </TableRow>
+    <TableRow>
+        <TableCell>
+            fn
+        </TableCell>
+        <TableCell>
+            函数
+        </TableCell>
+        <TableCell>
+            需要记忆化的原始函数
+        </TableCell>
+    </TableRow>
+    <TableRow>
+        <TableCell>
+            resolver
+        </TableCell>
+        <TableCell>
+            函数（可选）
+        </TableCell>
+        <TableCell>
+            自定义缓存 key 生成函数，默认使用参数序列化作为 key
+        </TableCell>
+    </TableRow>
+</Table>
+
+### 示例
+
+```
+const fibonacci = memoize((n) => {
+    if (n <= 1) return n;
+    return fibonacci(n - 1) + fibonacci(n - 2);
+});
+
+fibonacci(10); // 首次计算，返回 55
+fibonacci(10); // 直接返回缓存结果 55
+```
+
+## bind
+
+创建一个新函数，将原始函数的 this 上下文绑定到指定对象，还可以预设部分参数。
+
+### 参数
+
+<Table>
+    <TableRow>
+        <TableCell>
+            参数名
+        </TableCell>
+        <TableCell>
+            类型
+        </TableCell>
+        <TableCell>
+            描述
+        </TableCell>
+    </TableRow>
+    <TableRow>
+        <TableCell>
+            fn
+        </TableCell>
+        <TableCell>
+            函数
+        </TableCell>
+        <TableCell>
+            需要绑定上下文的原始函数
+        </TableCell>
+    </TableRow>
+    <TableRow>
+        <TableCell>
+            thisArg
+        </TableCell>
+        <TableCell>
+            任意
+        </TableCell>
+        <TableCell>
+            绑定的 this 上下文对象
+        </TableCell>
+    </TableRow>
+    <TableRow>
+        <TableCell>
+            partials
+        </TableCell>
+        <TableCell>
+            任意（可选，多个）
+        </TableCell>
+        <TableCell>
+            预设的参数，会插入到原始函数参数列表的前面
+        </TableCell>
+    </TableRow>
+</Table>
+
+### 示例
+
+```
+const obj = {
+    value: 1,
+    getValue: function(add) {
+        return this.value + (add || 0);
+    }
+};
+
+const boundGetValue = bind(obj.getValue, obj);
+boundGetValue(); // 1
+boundGetValue(2); // 3
+
+const boundWithPartial = bind(obj.getValue, obj, 5);
+boundWithPartial(); // 6
+```
+
+## partial
+
+创建一个偏函数，预设原始函数的部分参数，返回一个接受剩余参数的新函数。与 bind 不同，partial 不会改变 this 上下文。
+
+### 参数
+
+<Table>
+    <TableRow>
+        <TableCell>
+            参数名
+        </TableCell>
+        <TableCell>
+            类型
+        </TableCell>
+        <TableCell>
+            描述
+        </TableCell>
+    </TableRow>
+    <TableRow>
+        <TableCell>
+            fn
+        </TableCell>
+        <TableCell>
+            函数
+        </TableCell>
+        <TableCell>
+            需要偏应用的原始函数
+        </TableCell>
+    </TableRow>
+    <TableRow>
+        <TableCell>
+            partials
+        </TableCell>
+        <TableCell>
+            任意（可选，多个）
+        </TableCell>
+        <TableCell>
+            预设的参数，会插入到原始函数参数列表的前面
+        </TableCell>
+    </TableRow>
+</Table>
+
+### 示例
+
+```
+function multiply(a, b, c) {
+    return a * b * c;
+}
+
+const partialMultiply = partial(multiply, 2);
+partialMultiply(3, 4); // 24
+
+const double = partial(multiply, 2, 1);
+double(5); // 10
+```
+
+## compose
+
+从右到左组合多个函数，将上一个函数的返回值作为下一个函数的输入，最终返回一个组合后的新函数。
+
+### 参数
+
+<Table>
+    <TableRow>
+        <TableCell>
+            参数名
+        </TableCell>
+        <TableCell>
+            类型
+        </TableCell>
+        <TableCell>
+            描述
+        </TableCell>
+    </TableRow>
+    <TableRow>
+        <TableCell>
+            fns
+        </TableCell>
+        <TableCell>
+            函数（多个）
+        </TableCell>
+        <TableCell>
+            需要组合的函数，按从右到左的顺序执行
+        </TableCell>
+    </TableRow>
+</Table>
+
+### 示例
+
+```
+const add = (x) => x + 1;
+const multiply = (x) => x * 2;
+const square = (x) => x * x;
+
+const composedFn = compose(square, multiply, add);
+composedFn(3); // 先 add(3)=4，再 multiply(4)=8，最后 square(8)=64，返回 64
+```
+
+## 相关链接
+
+<BulletedList>
+    <BulletedList>
+        函数式编程基础可参考 <Link href="/fp-module">FP Module</Link>
+    </BulletedList>
+    <BulletedList>
+        数组相关方法可查看 <Link href="/array-methods">Array Methods</Link>
+    </BulletedList>
+    <BulletedList>
+        类型判断相关方法可查看 <Link href="/lang-methods">Lang Methods</Link>
+    </BulletedList>
+</BulletedList>
