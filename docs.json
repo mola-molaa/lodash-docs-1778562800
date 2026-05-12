@@ -1,0 +1,39 @@
+{
+  "$schema": "https://mintlify.com/docs.json",
+  "name": "Lodash Documentation",
+  "navigation": {
+    "groups": [
+      {
+        "group": "Get Started",
+        "pages": [
+          "introduction",
+          "quickstart",
+          "installation"
+        ]
+      },
+      {
+        "group": "Core Concepts",
+        "pages": [
+          "modules-overview",
+          "fp-module"
+        ]
+      },
+      {
+        "group": "API Reference",
+        "pages": [
+          "array-methods",
+          "collection-methods",
+          "function-methods",
+          "lang-methods"
+        ]
+      },
+      {
+        "group": "Project",
+        "pages": [
+          "contributing",
+          "governance"
+        ]
+      }
+    ]
+  }
+}
