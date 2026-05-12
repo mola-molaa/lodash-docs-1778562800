@@ -1,0 +1,181 @@
+---
+title: Contributing
+icon: 🤝
+---
+
+感谢你考虑为 Lodash 贡献代码！Lodash 的发展离不开社区开发者的参与。本文档将详细说明贡献流程、代码规范与 Pull Request 要求，帮助你顺利参与项目共建。
+
+## 贡献方式
+
+你可以通过以下多种方式参与到 Lodash 项目中：
+
+<BulletedList>
+    提交 Bug 修复或功能增强
+</BulletedList>
+<BulletedList>
+    完善文档内容，补充使用示例或修正错误描述
+</BulletedList>
+<BulletedList>
+    优化测试用例，提升代码覆盖率
+</BulletedList>
+<BulletedList>
+    参与 <Link href="/governance">社区治理</Link> 相关的讨论与规则完善
+</BulletedList>
+
+## 开发流程
+
+### 前置准备
+
+1. 首先将 Lodash 仓库 Fork 到你自己的 GitHub 账号下。
+2. 克隆你 Fork 后的仓库到本地：
+   <Paragraph>
+       <Mark color="blue">git clone https://github.com/你的用户名/lodash.git</Mark>
+   </Paragraph>
+3. 添加上游仓库为远程源，方便同步最新代码：
+   <Paragraph>
+       <Mark color="blue">git remote add upstream https://github.com/lodash/lodash.git</Mark>
+   </Paragraph>
+4. 安装项目依赖：
+   <Paragraph>
+       <Mark color="blue">npm install</Mark>
+   </Paragraph>
+
+### 开发步骤
+
+<NumberedList>
+    从 <Mark color="blue">main</Mark> 分支拉取最新的上游代码：
+    <Paragraph>
+        <Mark color="blue">git checkout main</Mark>
+    </Paragraph>
+    <Paragraph>
+        <Mark color="blue">git pull upstream main</Mark>
+    </Paragraph>
+</NumberedList>
+<NumberedList>
+    创建你的功能分支，分支名建议采用语义化命名，例如 <Mark color="blue">fix/array-chunk-edge-case</Mark> 或 <Mark color="blue">feat/add-new-math-helper</Mark>：
+    <Paragraph>
+        <Mark color="blue">git checkout -b feat/your-feature-name</Mark>
+    </Paragraph>
+</NumberedList>
+<NumberedList>
+    在分支上进行代码修改，遵循后续章节的代码风格规范。
+</NumberedList>
+<NumberedList>
+    完成修改后提交代码，提交信息建议清晰说明修改内容，例如：
+    <Paragraph>
+        <Mark color="blue">git commit -m "fix: handle empty array in chunk method"</Mark>
+    </Paragraph>
+</NumberedList>
+<NumberedList>
+    推送你的分支到自己的 Fork 仓库：
+    <Paragraph>
+        <Mark color="blue">git push origin feat/your-feature-name</Mark>
+    </Paragraph>
+</NumberedList>
+<NumberedList>
+    前往 GitHub 仓库页面，创建 Pull Request 到 Lodash 的 <Mark color="blue">main</Mark> 分支。
+</NumberedList>
+
+## 测试要求
+
+所有代码修改都必须包含对应的测试用例，确保功能正确且不会引入回归问题。
+
+### 运行测试
+
+项目使用内置的测试框架，你可以通过以下命令运行全部测试：
+<Paragraph>
+    <Mark color="blue">npm test</Mark>
+</Paragraph>
+
+如果只需要运行特定模块的测试，可以指定测试文件路径：
+<Paragraph>
+    <Mark color="blue">npm test test/array/chunk.js</Mark>
+</Paragraph>
+
+### 测试编写规范
+
+<BulletedList>
+    测试用例需要覆盖正常场景、边界场景和异常场景
+</BulletedList>
+<BulletedList>
+    测试方法命名需要清晰说明测试意图，例如 <Mark color="blue">should return empty array when input is null</Mark>
+</BulletedList>
+<BulletedList>
+    新增功能必须包含完整的测试用例，修复 Bug 需要补充对应触发 Bug 的测试用例
+</BulletedList>
+
+## 代码风格
+
+Lodash 项目有严格的代码风格要求，所有提交的代码都需要符合以下规范：
+
+<BulletedList>
+    遵循项目已有的代码缩进与换行风格，使用 2 个空格作为缩进单位
+</BulletedList>
+<BulletedList>
+    变量与函数命名采用 camelCase 风格，语义清晰
+</BulletedList>
+<BulletedList>
+    避免使用 ES 未被 Lodash 支持环境覆盖的新特性，确保兼容性
+</BulletedList>
+<BulletedList>
+    注释需要简洁明了，复杂逻辑需要补充必要的说明注释
+</BulletedList>
+<BulletedList>
+    导出的函数需要补充对应的 JSDoc 注释，说明参数、返回值与功能
+</BulletedList>
+
+如果需要了解现有模块的代码风格，可以参考 <Link href="/modules-overview">模块概览</Link>、<Link href="/array-methods">数组方法</Link>、<Link href="/function-methods">函数方法</Link> 等页面的示例代码。
+
+## Pull Request 规范
+
+提交 Pull Request 时请遵守以下要求，提升 PR 的审核通过效率：
+
+<BulletedList>
+    PR 标题需要清晰说明修改内容，建议遵循 Conventional Commits 规范，例如 <Mark color="blue">fix(array): handle edge case in chunk method</Mark> 或 <Mark color="blue">feat(lang): add isPrime helper</Mark>
+</BulletedList>
+<BulletedList>
+    PR 描述中需要说明修改的背景、解决的问题或实现的功能，关联对应的 Issue（如有）
+</BulletedList>
+<BulletedList>
+    单个 PR 尽量只做一件事，避免混合多个不相关的修改
+</BulletedList>
+<BulletedList>
+    确保本地测试全部通过后再提交 PR，避免 CI 检查失败
+</BulletedList>
+<BulletedList>
+    如果 PR 涉及 Breaking Change，必须在描述中明确说明变更内容与迁移方案
+</BulletedList>
+<BulletedList>
+    积极响应审核人员的反馈，及时修改代码或补充说明
+</BulletedList>
+
+## 相关资源
+
+你可以通过以下页面了解更多 Lodash 相关信息：
+
+<ColumnList>
+    <Column width="25%">
+        <Link href="/introduction">项目介绍</Link>
+    </Column>
+    <Column width="25%">
+        <Link href="/quickstart">快速上手</Link>
+    </Column>
+    <Column width="25%">
+        <Link href="/installation">安装指南</Link>
+    </Column>
+    <Column width="25%">
+        <Link href="/fp-module">FP 模块说明</Link>
+    </Column>
+</ColumnList>
+
+<ColumnList>
+    <Column width="33%">
+        <Link href="/collection-methods">集合方法</Link>
+    </Column>
+    <Column width="33%">
+        <Link href="/lang-methods">语言方法</Link>
+    </Column>
+    <Column width="34%">
+        <Link href="/governance">社区治理</Link>
+    </Column>
+</ColumnList>
