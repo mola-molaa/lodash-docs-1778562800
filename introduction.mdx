@@ -1,0 +1,124 @@
+---
+title: Introduction
+icon: 📘
+---
+
+Lodash 是一套专注于 <Mark bold>一致性、模块化、高性能</Mark> 的 JavaScript 实用工具库，为开发者提供大量经过充分测试、跨环境兼容的函数式辅助方法，帮助你在日常开发中更高效地处理数组、对象、函数等常见数据结构。
+
+## 项目定位
+
+Lodash 诞生于早期 JavaScript 标准库能力相对薄弱的阶段，目标是填补原生 API 在数据处理、函数式编程辅助能力上的缺口。它并不尝试替代原生 API，而是作为原生能力的补充，让你可以用更简洁、可读性更高的代码完成复杂的数据操作与逻辑编排。
+
+与早期工具库不同，Lodash 从设计之初就强调：
+
+<BulletedList>
+    模块化设计：你可以只引入需要的方法，避免引入整个库带来的体积负担
+</BulletedList>
+<BulletedList>
+    跨环境兼容：在浏览器、Node.js、各类旧运行环境中均保持行为一致
+</BulletedList>
+<BulletedList>
+    稳定可靠：拥有完善的测试用例与长期维护历史，适合生产环境使用
+</BulletedList>
+
+## 核心能力
+
+Lodash 覆盖了日常开发中最常见的数据处理场景，核心能力主要包括以下方面：
+
+<Table>
+    <TableRow>
+        <TableCell>
+            能力分类
+        </TableCell>
+        <TableCell>
+            说明
+        </TableCell>
+        <TableCell>
+            相关页面
+        </TableCell>
+    </TableRow>
+    <TableRow>
+        <TableCell>
+            数组操作
+        </TableCell>
+        <TableCell>
+            提供排序、分组、扁平化、去重、切片等丰富数组处理方法
+        </TableCell>
+        <TableCell>
+            <Link href="/array-methods">array-methods</Link>
+        </TableCell>
+    </TableRow>
+    <TableRow>
+        <TableCell>
+            集合操作
+        </TableCell>
+        <TableCell>
+            统一处理数组与类数组、对象等可迭代结构，提供遍历、过滤、映射等能力
+        </TableCell>
+        <TableCell>
+            <Link href="/collection-methods">collection-methods</Link>
+        </TableCell>
+    </TableRow>
+    <TableRow>
+        <TableCell>
+            函数增强
+        </TableCell>
+        <TableCell>
+            提供节流、防抖、柯里化、函数绑定、函数组合等函数式编程辅助能力
+        </TableCell>
+        <TableCell>
+            <Link href="/function-methods">function-methods</Link>
+        </TableCell>
+    </TableRow>
+    <TableRow>
+        <TableCell>
+            类型与语言增强
+        </TableCell>
+        <TableCell>
+            提供更严谨的类型判断、对象深拷贝、对象合并与赋值等能力
+        </TableCell>
+        <TableCell>
+            <Link href="/lang-methods">lang-methods</Link>
+        </TableCell>
+    </TableRow>
+</Table>
+
+除此之外，Lodash 还提供了 <Link href="/fp-module">fp 模块</Link>，它基于函数式编程范式对原有方法进行了包装，默认开启自动柯里化、数据最后传入等特性，更适合函数式编程场景使用。
+
+## 适用场景
+
+以下场景中，Lodash 能够显著提升你的开发效率：
+
+<NumberedList>
+    需要处理复杂数据结构转换、过滤、分组等操作的业务代码
+</NumberedList>
+<NumberedList>
+    需要统一的跨环境工具方法，避免不同运行环境行为差异导致的问题
+</NumberedList>
+<NumberedList>
+    需要函数式编程辅助能力（如节流、防抖、柯里化）但又不希望引入过重 FP 专用库的项目
+</NumberedList>
+<NumberedList>
+    对代码稳定性、可维护性要求较高的生产环境项目
+</NumberedList>
+
+## 与同类工具的差异化优势
+
+相比其他 JavaScript 工具库或原生 API，Lodash 的优势主要体现在：
+
+<BulletedList>
+    方法覆盖全面：单个库即可覆盖绝大多数日常工具方法需求，无需组合多个小库
+</BulletedList>
+<BulletedList>
+    行为一致性强：相同方法在不同数据结构、不同运行环境下行为统一，减少边界情况处理成本
+</BulletedList>
+<BulletedList>
+    生态成熟：拥有大量社区实践、教程与配套工具，上手成本极低
+</BulletedList>
+<BulletedList>
+    模块化灵活：支持按方法引入、按模块引入或全量引入，可根据项目体积要求灵活选择
+</BulletedList>
+
+如果你还没有安装 Lodash，可以参考 <Link href="/installation">installation</Link> 页面完成环境配置，也可以阅读 <Link href="/quickstart">quickstart</Link> 快速体验核心能力。更多模块相关说明可以查看 <Link href="/modules-overview">modules-overview</Link>。
+
+如果你希望参与项目贡献，可以查看 <Link href="/contributing">contributing</Link> 与 <Link href="/governance">governance</Link> 了解相关规范与流程。
