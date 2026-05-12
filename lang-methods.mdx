@@ -1,0 +1,382 @@
+---
+title: Lang Methods
+icon: 🧬
+---
+
+Lang 模块提供了一系列与语言基础类型判断、类型转换以及数据克隆相关的工具方法。这些方法通常用于处理 JavaScript 基础类型与复杂类型的识别、比较与转换，是日常开发中高频使用的基础能力。
+
+## 方法列表
+
+<Table>
+    <TableRow>
+        <TableCell>
+            方法名
+        </TableCell>
+        <TableCell>
+            说明
+        </TableCell>
+    </TableRow>
+    <TableRow>
+        <TableCell>
+            <Mark bold>clone</Mark>
+        </TableCell>
+        <TableCell>
+            深拷贝任意值，返回一个与源数据完全独立的新数据
+        </TableCell>
+    </TableRow>
+    <TableRow>
+        <TableCell>
+            <Mark bold>isArray</Mark>
+        </TableCell>
+        <TableCell>
+            判断给定值是否为数组类型
+        </TableCell>
+    </TableRow>
+    <TableRow>
+        <TableCell>
+            <Mark bold>isEqual</Mark>
+        </TableCell>
+        <TableCell>
+            深度比较两个值是否完全相等
+        </TableCell>
+    </TableRow>
+    <TableRow>
+        <TableCell>
+            <Mark bold>isObject</Mark>
+        </TableCell>
+        <TableCell>
+            判断给定值是否为普通对象（非 null 的 object 类型）
+        </TableCell>
+    </TableRow>
+    <TableRow>
+        <TableCell>
+            <Mark bold>toArray</Mark>
+        </TableCell>
+        <TableCell>
+            将任意值转换为数组
+        </TableCell>
+    </TableRow>
+    <TableRow>
+        <TableCell>
+            <Mark bold>toString</Mark>
+        </TableCell>
+        <TableCell>
+            将任意值转换为字符串表示
+        </TableCell>
+    </TableRow>
+</Table>
+
+## clone
+
+<Heading level="2">
+    clone
+</Heading>
+
+<Paragraph>
+    <Mark bold>clone</Mark> 方法用于深拷贝一个值，返回的结果与原始数据在内存中完全独立，修改拷贝后的数据不会影响原始数据。它对常见内置类型（对象、数组、日期、正则等）都有良好的支持。
+</Paragraph>
+
+### 参数
+
+<BulletedList>
+    待拷贝的任意值 value
+</BulletedList>
+
+### 示例
+
+<Paragraph>
+    拷贝一个普通对象：
+</Paragraph>
+
+<Paragraph>
+    <Mark bold>const</Mark> original = { name: <Mark color="green">"foo"</Mark>, meta: { count: 1 } };<Mark color="grey">// 原始对象</Mark>
+</Paragraph>
+
+<Paragraph>
+    <Mark bold>const</Mark> cloned = clone(original);<Mark color="grey">// 深拷贝对象</Mark>
+</Paragraph>
+
+<Paragraph>
+    cloned.meta.count = 2;<Mark color="grey">// 修改拷贝对象</Mark>
+</Paragraph>
+
+<Paragraph>
+    console.log(original.meta.count); <Mark color="grey">// 输出: 1（原始对象不受影响）</Mark>
+</Paragraph>
+
+<Paragraph>
+    拷贝一个数组：
+</Paragraph>
+
+<Paragraph>
+    <Mark bold>const</Mark> arr = [1, 2, { a: 3 }];
+</Paragraph>
+
+<Paragraph>
+    <Mark bold>const</Mark> arrCloned = clone(arr);
+</Paragraph>
+
+<Paragraph>
+    arrCloned[2].a = 99;
+</Paragraph>
+
+<Paragraph>
+    console.log(arr[2].a); <Mark color="grey">// 输出: 3</Mark>
+</Paragraph>
+
+## isArray
+
+<Heading level="2">
+    isArray
+</Heading>
+
+<Paragraph>
+    <Mark bold>isArray</Mark> 用于判断给定值是否为数组类型，比原生 <Mark color="blue">Array.isArray</Mark> 更统一地封装在工具库中，便于在项目中统一使用。
+</Paragraph>
+
+### 参数
+
+<BulletedList>
+    任意值 value
+</BulletedList>
+
+### 返回值
+
+<Paragraph>
+    如果 value 是数组，返回 <Mark color="blue">true</Mark>；否则返回 <Mark color="blue">false</Mark>。
+</Paragraph>
+
+### 示例
+
+<Paragraph>
+    isArray([1, 2, 3]); <Mark color="grey">// true</Mark>
+</Paragraph>
+
+<Paragraph>
+    isArray(<Mark color="green">"not an array"</Mark>); <Mark color="grey">// false</Mark>
+</Paragraph>
+
+<Paragraph>
+    isArray({ length: 2 }); <Mark color="grey">// false</Mark>
+</Paragraph>
+
+## isEqual
+
+<Heading level="2">
+    isEqual
+</Heading>
+
+<Paragraph>
+    <Mark bold>isEqual</Mark> 用于深度比较两个值是否完全相等，支持对象、数组、基本类型等复杂结构的比较，不会像 <Mark color="blue">===</Mark> 那样因引用不同而导致对象比较失败。
+</Paragraph>
+
+### 参数
+
+<BulletedList>
+    第一个待比较值 a
+    <BulletedList>
+        第二个待比较值 b
+    </BulletedList>
+</BulletedList>
+
+### 示例
+
+<Paragraph>
+    基本类型比较：
+</Paragraph>
+
+<Paragraph>
+    isEqual(1, 1); <Mark color="grey">// true</Mark>
+</Paragraph>
+
+<Paragraph>
+    isEqual(<Mark color="green">"abc"</Mark>, <Mark color="green">"abc"</Mark>); <Mark color="grey">// true</Mark>
+</Paragraph>
+
+<Paragraph>
+    对象深度比较：
+</Paragraph>
+
+<Paragraph>
+    isEqual({ a: 1 }, { a: 1 }); <Mark color="grey">// true</Mark>
+</Paragraph>
+
+<Paragraph>
+    isEqual({ a: { b: 2 } }, { a: { b: 2 } }); <Mark color="grey">// true</Mark>
+</Paragraph>
+
+<Paragraph>
+    isEqual([1, 2, 3], [1, 2, 3]); <Mark color="grey">// true</Mark>
+</Paragraph>
+
+<Paragraph>
+    不相等的情况：
+</Paragraph>
+
+<Paragraph>
+    isEqual({ a: 1 }, { a: 2 }); <Mark color="grey">// false</Mark>
+</Paragraph>
+
+<Paragraph>
+    isEqual([1, 2], [1, 2, 3]); <Mark color="grey">// false</Mark>
+</Paragraph>
+
+## isObject
+
+<Heading level="2">
+    isObject
+</Heading>
+
+<Paragraph>
+    <Mark bold>isObject</Mark> 用于判断给定值是否为普通对象，即类型为 <Mark color="blue">"object"</Mark> 且不为 <Mark color="blue">null</Mark>。它不会把数组、函数、日期等其它 object 子类型判定为普通对象。
+</Paragraph>
+
+### 参数
+
+<BulletedList>
+    任意值 value
+</BulletedList>
+
+### 示例
+
+<Paragraph>
+    isObject({}); <Mark color="grey">// true</Mark>
+</Paragraph>
+
+<Paragraph>
+    isObject({ a: 1 }); <Mark color="grey">// true</Mark>
+</Paragraph>
+
+<Paragraph>
+    isObject([]); <Mark color="grey">// false（数组不是普通对象）</Mark>
+</Paragraph>
+
+<Paragraph>
+    isObject(<Mark color="blue">null</Mark>); <Mark color="grey">// false</Mark>
+</Paragraph>
+
+<Paragraph>
+    isObject(<Mark color="blue">function</Mark>() {}); <Mark color="grey">// false</Mark>
+</Paragraph>
+
+## toArray
+
+<Heading level="2">
+    toArray
+</Heading>
+
+<Paragraph>
+    <Mark bold>toArray</Mark> 用于将任意值转换为数组。如果值本身已经是数组，则直接返回；如果是类数组（如 arguments、NodeList）或支持迭代的对象，会转换为真正的数组；如果是其它值，会将其包装为数组元素返回。
+</Paragraph>
+
+### 参数
+
+<BulletedList>
+    任意值 value
+</BulletedList>
+
+### 示例
+
+<Paragraph>
+    已经是数组：
+</Paragraph>
+
+<Paragraph>
+    toArray([1, 2, 3]); <Mark color="grey">// [1, 2, 3]</Mark>
+</Paragraph>
+
+<Paragraph>
+    类数组对象：
+</Paragraph>
+
+<Paragraph>
+    <Mark color="grey">// 模拟 arguments</Mark>
+</Paragraph>
+
+<Paragraph>
+    <Mark bold>function</Mark> test() {
+</Paragraph>
+
+<Paragraph>
+        <Mark bold>return</Mark> toArray(arguments);
+</Paragraph>
+
+<Paragraph>
+    }
+</Paragraph>
+
+<Paragraph>
+    test(1, 2, 3); <Mark color="grey">// [1, 2, 3]</Mark>
+</Paragraph>
+
+<Paragraph>
+    普通值包装：
+</Paragraph>
+
+<Paragraph>
+    toArray(42); <Mark color="grey">// [42]</Mark>
+</Paragraph>
+
+<Paragraph>
+    toArray(<Mark color="blue">null</Mark>); <Mark color="grey">// [null]</Mark>
+</Paragraph>
+
+## toString
+
+<Heading level="2">
+    toString
+</Heading>
+
+<Paragraph>
+    <Mark bold>toString</Mark> 用于将任意值转换为字符串表示，避免直接使用 <Mark color="blue">String()</Mark> 或 <Mark color="blue">.toString()</Mark> 时可能出现的类型错误或空值问题。
+</Paragraph>
+
+### 参数
+
+<BulletedList>
+    任意值 value
+</BulletedList>
+
+### 示例
+
+<Paragraph>
+    基本类型：
+</Paragraph>
+
+<Paragraph>
+    toString(123); <Mark color="grey">// "123"</Mark>
+</Paragraph>
+
+<Paragraph>
+    toString(<Mark color="blue">true</Mark>); <Mark color="grey">// "true"</Mark>
+</Paragraph>
+
+<Paragraph>
+    对象与数组：
+</Paragraph>
+
+<Paragraph>
+    toString({ a: 1 }); <Mark color="grey">// "[object Object]" 或序列化结果</Mark>
+</Paragraph>
+
+<Paragraph>
+    toString([1, 2]); <Mark color="grey">// "1,2"</Mark>
+</Paragraph>
+
+<Paragraph>
+    特殊值：
+</Paragraph>
+
+<Paragraph>
+    toString(<Mark color="blue">null</Mark>); <Mark color="grey">// 返回安全字符串，如 "null"</Mark>
+</Paragraph>
+
+<Paragraph>
+    toString(<Mark color="blue">undefined</Mark>); <Mark color="grey">// 返回安全字符串，如 "undefined"</Mark>
+</Paragraph>
+
+## 相关模块
+
+<Paragraph>
+    这些方法属于 Lang 模块的基础能力，如果你需要了解更多函数式工具方法，可以参考 <Link href="/fp-module">fp-module</Link>；如果你需要操作数组的更多方法，可以参考 <Link href="/array-methods">array-methods</Link>；如果你需要操作集合的更多方法，可以参考 <Link href="/collection-methods">collection-methods</Link>。
+</Paragraph>
