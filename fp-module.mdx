@@ -1,0 +1,191 @@
+---
+title: FP Module
+icon: 🔧
+---
+
+# FP Module
+
+lodash/fp 是 Lodash 的函数式编程变体，它将 Lodash 的常用工具方法进行了函数式适配，移除了可变操作，统一了函数行为，更适合在纯函数式编程场景中使用。
+
+## 核心特性
+
+### 不可变性
+
+lodash/fp 中的所有方法都遵循不可变原则，不会修改传入的原始数据，而是返回一个新的处理结果。这与原生 Lodash 部分方法会修改原对象的特性不同，避免了副作用带来的状态管理问题。
+
+例如使用 `lodash/fp` 的数组操作方法时，原始数组会保持原样，新数组会作为返回值输出，完全符合函数式编程“无副作用”的核心要求。
+
+### 自动柯里化
+
+lodash/fp 中所有多参数方法都默认支持自动柯里化：当传入的参数数量不足时，方法会返回一个新的函数，等待剩余参数传入后再执行计算。
+
+比如 `fp.map` 方法原生接收两个参数（迭代函数、目标数组），如果只传入迭代函数，会返回一个接收数组参数并执行 map 操作的新函数，可以方便地用于函数组合场景。
+
+### 参数顺序翻转
+
+lodash/fp 统一将**数据参数放在最后**，函数参数放在前面。这种参数顺序设计是为了更好地配合柯里化和函数组合：
+
+- 先定义好操作逻辑（函数参数）
+- 最后传入需要处理的数据
+- 可以很自然地将多个操作组合成数据处理管道
+
+对比原生 Lodash 的部分方法（数据参数在前，函数参数在后），lodash/fp 的参数顺序更符合函数式编程的“数据最后”惯例。
+
+## 使用方法
+
+### 基础引入
+
+可以通过两种方式引入 lodash/fp 模块：
+
+<BulletedList>
+    完整引入整个 fp 模块：<Mark color="blue">import fp from 'lodash/fp'</Mark>
+    <BulletedList>
+        此时所有 fp 方法都挂载在 fp 对象下，通过 <Mark color="blue">fp.methodName</Mark> 调用
+    </BulletedList>
+</BulletedList>
+<BulletedList>
+    按需引入单个方法：<Mark color="blue">import map from 'lodash/fp/map'</Mark>
+    <BulletedList>
+        适合只需要少量方法的场景，可以减少打包体积
+    </BulletedList>
+</BulletedList>
+
+### 简单示例
+
+下面是一个使用 `fp.map` 和 `fp.filter` 组合处理数组的例子：
+
+<ColumnList>
+    <Column width="50%">
+        代码示例：
+        <Paragraph>
+            <Mark color="blue">import</Mark> { map, filter, flow } <Mark color="blue">from</Mark> 'lodash/fp';
+        </Paragraph>
+        <Paragraph>
+            <Mark color="grey">// 定义数据处理管道：先过滤偶数，再每个元素乘2</Mark>
+        </Paragraph>
+        <Paragraph>
+            <Mark color="blue">const</Mark> processNumbers = flow(
+        </Paragraph>
+        <Paragraph>
+                filter(num => num % 2 === 0),
+        </Paragraph>
+        <Paragraph>
+                map(num => num * 2)
+        </Paragraph>
+        <Paragraph>
+            );
+        </Paragraph>
+        <Paragraph>
+            <Mark color="blue">const</Mark> result = processNumbers([1, 2, 3, 4, 5, 6]);
+        </Paragraph>
+        <Paragraph>
+            <Mark color="grey">// result 为 [4, 8, 12]，原数组不变</Mark>
+        </Paragraph>
+    </Column>
+    <Column width="50%">
+        输出说明：
+        <BulletedList>
+            原始数组 <Mark color="blue">[1,2,3,4,5,6]</Mark> 保持不变
+            <BulletedList>
+                符合不可变特性，不会产生副作用
+            </BulletedList>
+        </BulletedList>
+        <BulletedList>
+            flow 管道先执行 filter，筛选出 2、4、6
+            <BulletedList>
+                filter 接收迭代函数，等待后续传入数组
+            </BulletedList>
+        </BulletedList>
+        <BulletedList>
+            再执行 map，将每个元素乘2得到 4、8、12
+            <BulletedList>
+                map 同样先接收迭代函数，最后统一处理数据
+            </BulletedList>
+        </BulletedList>
+    </Column>
+</ColumnList>
+
+## 方法转换规则
+
+如果你熟悉原生 Lodash，可以按照以下规则将原生方法转换为 lodash/fp 对应方法：
+
+<Table>
+    <TableRow>
+        <TableCell>
+            原生 Lodash 方法
+        </TableCell>
+        <TableCell>
+            lodash/fp 对应方法
+        </TableCell>
+        <TableCell>
+            转换点说明
+        </TableCell>
+    </TableRow>
+    <TableRow>
+        <TableCell>
+            <Mark color="blue">_.map(collection, iteratee)</Mark>
+        </TableCell>
+        <TableCell>
+            <Mark color="blue">fp.map(iteratee, collection)</Mark>
+        </TableCell>
+        <TableCell>
+            参数顺序翻转，数据放最后；自动柯里化
+        </TableCell>
+    </TableRow>
+    <TableRow>
+        <TableCell>
+            <Mark color="blue">_.filter(collection, predicate)</Mark>
+        </TableCell>
+        <TableCell>
+            <Mark color="blue">fp.filter(predicate, collection)</Mark>
+        </TableCell>
+        <TableCell>
+            参数顺序翻转，数据放最后；自动柯里化
+        </TableCell>
+    </TableRow>
+    <TableRow>
+        <TableCell>
+            <Mark color="blue">_.reduce(collection, iteratee, accumulator)</Mark>
+        </TableCell>
+        <TableCell>
+            <Mark color="blue">fp.reduce(iteratee, accumulator, collection)</Mark>
+        </TableCell>
+        <TableCell>
+            参数顺序翻转，数据放最后；自动柯里化
+        </TableCell>
+    </TableRow>
+    <TableRow>
+        <TableCell>
+            <Mark color="blue">_.flowRight(...funcs)</Mark>
+        </TableCell>
+        <TableCell>
+            <Mark color="blue">fp.flow(...funcs)</Mark>
+        </TableCell>
+        <TableCell>
+            函数组合从左向右执行，更符合直觉
+        </TableCell>
+    </TableRow>
+</Table>
+
+## 相关资源
+
+如果你需要了解 Lodash 的基础使用，可以先查看 <Link href="/introduction">Introduction</Link> 和 <Link href="/quickstart">Quick Start</Link> 页面完成环境准备。
+
+更多模块相关的使用说明可以参考：
+<BulletedList>
+    <Link href="/modules-overview">Modules Overview</Link>：了解 Lodash 整体模块结构
+</BulletedList>
+<BulletedList>
+    <Link href="/array-methods">Array Methods</Link>：数组相关方法详细说明
+</BulletedList>
+<BulletedList>
+    <Link href="/collection-methods">Collection Methods</Link>：集合相关方法详细说明
+</BulletedList>
+<BulletedList>
+    <Link href="/function-methods">Function Methods</Link>：函数相关方法详细说明
+</BulletedList>
+<BulletedList>
+    <Link href="/lang-methods">Lang Methods</Link>：语言相关方法详细说明
+</BulletedList>
+
+如果想要参与 lodash/fp 的开发贡献，可以参考 <Link href="/contributing">Contributing</Link> 和 <Link href="/governance">Governance</Link> 页面的规范说明。
