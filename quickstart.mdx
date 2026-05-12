@@ -1,0 +1,158 @@
+---
+title: Quickstart
+icon: 🚀
+---
+
+# 快速上手 Lodash
+
+本节将指导你在浏览器环境与 Node.js 环境中快速引入并使用 Lodash，涵盖完整引入、核心构建与按需加载三种常见使用方式，帮助你根据项目需求选择最合适的引入策略。
+
+## 环境准备
+
+在开始之前，请确保你已经完成了 Lodash 的安装。如果你还没有安装，可以参考 <Link href="installation">安装指南</Link> 完成环境配置。
+
+你也可以先阅读 <Link href="introduction">Lodash 简介</Link> 了解库的基本定位与设计理念。
+
+## 浏览器环境使用
+
+### 完整引入（通过 CDN）
+
+最简单的方式是通过 CDN 直接在 HTML 中引入完整的 Lodash 构建版本：
+
+```html
+<script src="https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js"></script>
+<script>
+  // Lodash 被挂载到全局变量 _
+  var arr = [1, 2, 3, 4, 5];
+  var chunked = _.chunk(arr, 2);
+  console.log(chunked); // [[1, 2], [3, 4], [5]]
+</script>
+```
+
+这种方式适合快速原型开发或简单页面，缺点是会加载整个库，包含你未必用到的模块。
+
+### 核心构建引入
+
+如果你只需要 Lodash 的核心功能（不包含一些较冷门的模块），可以使用 core 构建：
+
+```html
+<script src="https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.core.min.js"></script>
+<script>
+  // 同样挂载到全局 _
+  var result = _.debounce(function() {
+    console.log('核心构建可正常使用');
+  }, 300);
+</script>
+```
+
+### 按需加载（通过 ES Module）
+
+现代浏览器支持 ES Module 时，你可以配合打包工具只引入需要的函数：
+
+```html
+<script type="module">
+  import chunk from 'https://cdn.jsdelivr.net/npm/lodash-es/chunk.js';
+  import debounce from 'https://cdn.jsdelivr.net/npm/lodash-es/debounce.js';
+
+  const arr = [1, 2, 3, 4];
+  console.log(chunk(arr, 2));
+  const fn = debounce(() => console.log('debounced'), 300);
+</script>
+```
+
+## Node.js 环境使用
+
+### 完整引入
+
+安装完成后，你可以在项目中完整引入 Lodash：
+
+```javascript
+// CommonJS 方式
+const _ = require('lodash');
+
+const arr = [1, 2, 3, 4, 5];
+console.log(_.chunk(arr, 2)); // [[1, 2], [3, 4], [5]]
+console.log(_.uniq([1, 2, 2, 3])); // [1, 2, 3]
+```
+
+```javascript
+// ES Module 方式
+import _ from 'lodash';
+
+const result = _.groupBy([6.1, 4.2, 6.3], Math.floor);
+console.log(result); // { '4': [4.2], '6': [6.1, 6.3] }
+```
+
+### 按需加载（推荐）
+
+为了减少最终打包体积，推荐只引入你实际使用的函数：
+
+```javascript
+// CommonJS 按需引入
+const chunk = require('lodash/chunk');
+const debounce = require('lodash/debounce');
+
+console.log(chunk([1, 2, 3, 4], 2));
+const handler = debounce(() => console.log('处理完成'), 500);
+```
+
+```javascript
+// ES Module 按需引入（推荐，配合 tree-shaking）
+import chunk from 'lodash/chunk';
+import debounce from 'lodash/debounce';
+import { capitalize } from 'lodash';
+
+console.log(chunk([1, 2, 3, 4], 2));
+console.log(capitalize('hello')); // Hello
+const fn = debounce(() => {}, 300);
+```
+
+这种方式的优点是最终打包体积最小，只会包含你真正用到的代码。
+
+## 函数式编程风格（可选）
+
+如果你希望使用函数式编程风格（自动柯里化、参数顺序调整等），可以参考 <Link href="fp-module">fp 模块</Link> 了解 Lodash/fp 的使用方式：
+
+```javascript
+import { map, filter, flow } from 'lodash/fp';
+
+const getEvenSquares = flow(
+  filter(n => n % 2 === 0),
+  map(n => n * n)
+);
+
+console.log(getEvenSquares([1, 2, 3, 4, 5])); // [4, 16]
+```
+
+## 常用模块参考
+
+根据你的使用场景，可以查看以下模块文档了解更多具体 API：
+
+<BulletedList>
+    <Link href="array-methods">数组方法</Link>：chunk、flatten、uniq 等数组处理工具
+</BulletedList>
+<BulletedList>
+    <Link href="collection-methods">集合方法</Link>：forEach、map、filter 等集合遍历工具
+</BulletedList>
+<BulletedList>
+    <Link href="function-methods">函数方法</Link>：debounce、throttle、curry 等函数工具
+</BulletedList>
+<BulletedList>
+    <Link href="lang-methods">语言方法</Link>：类型判断、类型转换等基础工具
+</BulletedList>
+
+你也可以查看 <Link href="modules-overview">模块概览</Link> 获取完整的模块分类与索引。
+
+## 下一步
+
+现在你已经了解了 Lodash 的基本使用方式，接下来可以：
+
+<NumberedList>
+    根据具体需求查看对应模块的 API 文档
+</NumberedList>
+<NumberedList>
+    如果你的项目有特殊需求，可以参考 <Link href="contributing">贡献指南</Link> 参与社区贡献
+</NumberedList>
+<NumberedList>
+    了解 <Link href="governance">项目治理</Link> 机制，熟悉 Lodash 的维护与发布流程
+</NumberedList>
