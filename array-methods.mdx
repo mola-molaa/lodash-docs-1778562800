@@ -1,0 +1,124 @@
+---
+title: Array Methods
+icon: 📦
+---
+
+## 数组方法概览
+
+本文档详细说明工具库中提供的各类数组处理方法，涵盖数组切片、过滤、拼接、差分、扁平化等常见场景。这些方法在 <Link href="/modules-overview">模块总览</Link> 中被归类到数组处理模块，适合在数据处理、列表操作等场景中使用。
+
+## chunk
+
+将数组按指定大小拆分成多个子数组。
+
+**参数**
+- `array`：待拆分的原数组
+- `size`：每个子数组的最大长度，默认值为 `1`
+
+**示例**
+```javascript
+chunk([1, 2, 3, 4, 5], 2)
+// => [[1, 2], [3, 4], [5]]
+```
+
+## compact
+
+创建一个新数组，过滤掉原数组中的所有假值（如 `false`、`null`、`0`、`""`、`undefined`、`NaN`）。
+
+**参数**
+- `array`：待过滤的原数组
+
+**示例**
+```javascript
+compact([0, 1, false, 2, '', 3])
+// => [1, 2, 3]
+```
+
+## concat
+
+将多个数组或值合并成一个新数组，类似原生数组的 `concat` 方法，但提供函数式调用形式。
+
+**参数**
+- `array`：初始数组
+- `...values`：待合并的数组或值
+
+**示例**
+```javascript
+concat([1], 2, [3, 4], 5)
+// => [1, 2, 3, 4, 5]
+```
+
+## difference
+
+创建一个新数组，包含第一个数组中存在、而其他数组（`values`）中不存在的元素，即计算数组的差集。
+
+**参数**
+- `array`：基准数组
+- `values`：一个或多个用于对比的数组
+
+**示例**
+```javascript
+difference([1, 2, 3, 4], [2, 4])
+// => [1, 3]
+```
+
+## drop
+
+丢弃数组开头的 `n` 个元素，返回剩余的新数组。
+
+**参数**
+- `array`：原数组
+- `n`：要丢弃的元素数量，默认值为 `1`
+
+**示例**
+```javascript
+drop([1, 2, 3, 4, 5], 2)
+// => [3, 4, 5]
+```
+
+## fill
+
+用指定值填充数组的指定区间，默认填充整个数组。
+
+**参数**
+- `array`：待填充的数组
+- `value`：用于填充的值
+- `start`：起始索引（包含），默认 `0`
+- `end`：结束索引（不包含），默认数组长度
+
+**示例**
+```javascript
+fill(Array(3), '*')
+// => ['*', '*', '*']
+
+fill([1, 2, 3, 4], 'x', 1, 3)
+// => [1, 'x', 'x', 4]
+```
+
+## flatten
+
+将嵌套数组扁平化一层，减少一层嵌套深度。
+
+**参数**
+- `array`：待扁平化的嵌套数组
+
+**示例**
+```javascript
+flatten([1, [2, [3, [4]], 5]])
+// => [1, 2, [3, [4]], 5]
+```
+
+## 更多数组方法
+
+工具库还提供了更多数组处理方法，包括 `flattenDeep`（完全扁平化）、`dropRight`（从末尾丢弃元素）、`union`（数组合集）等。你可以结合 <Link href="/fp-module">函数式编程模块</Link> 中的组合能力，将这些数组方法串联成更复杂的数据处理管道。
+
+## 相关资源
+
+- <Link href="/introduction">工具库介绍</Link>
+- <Link href="/quickstart">快速上手</Link>
+- <Link href="/installation">安装指南</Link>
+- <Link href="/collection-methods">集合方法</Link>
+- <Link href="/function-methods">函数方法</Link>
+- <Link href="/lang-methods">语言工具方法</Link>
+- <Link href="/contributing">贡献指南</Link>
+- <Link href="/governance">治理规范</Link>
