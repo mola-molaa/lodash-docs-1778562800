@@ -1,0 +1,155 @@
+---
+title: Installation & Builds
+icon: 📦
+---
+
+# Installation
+
+You can install via <Mark bold>npm</Mark> or <Mark bold>yarn</Mark>:
+
+```bash
+npm install @algorithms-js/core
+# or
+yarn add @algorithms-js/core
+```
+
+If you need the full bundled experience, install the <Mark bold>full</Mark> build instead:
+
+```bash
+npm install @algorithms-js/full
+```
+
+<Divider />
+
+# Build Versions
+
+The library ships several pre-built packages so you can pick the one that best fits your project size and programming style.
+
+## Core Build
+
+The <Mark bold>core</Mark> build contains the essential data structure implementations and commonly used utilities. It is tree-shakable and recommended for most applications that only need a subset of features.
+
+Key characteristics:
+<BulletedList>
+    Minimal footprint
+</BulletedList>
+<BulletedList>
+    Tree-shakable module structure
+</BulletedList>
+<BulletedList>
+    Suitable for production apps that want to optimize bundle size
+</BulletedList>
+
+## Full Build
+
+The <Mark bold>full</Mark> build includes every available module and utility in a single package. Choose this version when you want to explore the entire library without worrying about individual imports.
+
+Key characteristics:
+<BulletedList>
+    All modules included (array, collection, function, lang, etc.)
+</BulletedList>
+<BulletedList>
+    Convenient for prototyping or full-featured projects
+</BulletedList>
+<BulletedList>
+    Larger bundle size compared to core
+</BulletedList>
+
+## FP (Functional Programming) Build
+
+The <Mark bold>fp</Mark> build re-exports all functions in a curried, immutable-by-default style. This variant is ideal if you prefer functional pipelines and composition.
+
+Key characteristics:
+<BulletedList>
+    Curried function signatures
+</BulletedList>
+<BulletedList>
+    Immutable data handling
+</BulletedList>
+<BulletedList>
+    Seamless integration with functional libraries
+</BulletedList>
+
+To learn more about the FP module, check <Link href="/fp-module">FP Module</Link>.
+
+<Divider />
+
+# Custom Builds
+
+If none of the pre-built packages fit your needs, you can create a custom build by cherry-picking only the modules you want.
+
+Typical workflow:
+<NumberedList>
+    Identify the modules you need (e.g., array-methods, collection-methods)
+</NumberedList>
+<NumberedList>
+    Import them individually in your source code
+</NumberedList>
+<NumberedList>
+    Use a bundler (webpack, rollup, vite, etc.) to produce an optimized output
+</NumberedList>
+
+Because the codebase is modular, your bundler will automatically exclude unused modules from the final artifact.
+
+<Divider />
+
+# Module Formats
+
+All builds are released in multiple module formats so you can use them in different environments:
+
+<Table>
+    <TableRow>
+        <TableCell>
+            Format
+        </TableCell>
+        <TableCell>
+            Use Case
+        </TableCell>
+    </TableRow>
+    <TableRow>
+        <TableCell>
+            ESM
+        </TableCell>
+        <TableCell>
+            Modern bundlers (webpack, vite, rollup) and native ES module environments
+        </TableCell>
+    </TableRow>
+    <TableRow>
+        <TableCell>
+            CommonJS
+        </TableCell>
+        <TableCell>
+            Legacy Node.js projects or older bundler configurations
+        </TableCell>
+    </TableRow>
+    <TableRow>
+        <TableCell>
+            UMD
+        </TableCell>
+        <TableCell>
+            Browser script tags or environments without a module system
+        </TableCell>
+    </TableRow>
+</Table>
+
+Your bundler will usually pick the correct format automatically based on your project configuration.
+
+<Divider />
+
+# Next Steps
+
+<BulletedList>
+    Read the <Link href="/introduction">Introduction</Link> to understand the library philosophy
+</BulletedList>
+<BulletedList>
+    Follow the <Link href="/quickstart">Quickstart</Link> guide to write your first example
+</BulletedList>
+<BulletedList>
+    Explore the <Link href="/modules-overview">Modules Overview</Link> to see what is available
+</BulletedList>
+<BulletedList>
+    Check individual module pages such as <Link href="/array-methods">Array Methods</Link>, <Link href="/collection-methods">Collection Methods</Link>, <Link href="/function-methods">Function Methods</Link>, and <Link href="/lang-methods">Lang Methods</Link>
+</BulletedList>
+<BulletedList>
+    Interested in contributing? Visit <Link href="/contributing">Contributing</Link> and <Link href="/governance">Governance</Link>
+</BulletedList>
